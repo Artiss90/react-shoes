@@ -1,9 +1,12 @@
+import TableShoes from './components/TableShoes';
 
+import style from './App.module.scss'
 
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.app}>
+      <TableShoes/>
     </div>
   );
 }
