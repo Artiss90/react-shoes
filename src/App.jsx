@@ -1,5 +1,4 @@
-import TableShoes from './components/TableShoes';
-
+import TableShoes from './components/TableShoes/TableShoes';
 import style from './App.module.scss'
 
 

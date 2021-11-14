@@ -1,0 +1,78 @@
+.container{
+    // margin-top: 100px; // Filter
+    // position: relative;
+}
+.table {
+    display: block;
+}
+.cell{
+    white-space: break-spaces;
+    border: 1px solid #000000;
+    text-align: center;
+    font-size: 8px;
+}
+.tableHead{
+    display: flex;
+}
+.titleTable{
+    background-color: rgb(28,194,132);
+}
+// width column for table
+.searchCode {
+    @extend .cell;
+    min-width: 220px;
+    max-width: 220px;} // код(70px) + фото(150px)
+.cellCode{
+    @extend .cell;
+    min-width: 70px;
+    max-width: 70px;
+}
+.cellDescription{
+    @extend .cell;
+    min-width: 200px;
+    max-width: 200px;
+}
+.cellSizes{
+    @extend .cell;
+    min-width: 135px;
+    max-width: 135px;
+}
+.cellPrice{
+    @extend .cell;
+    min-width: 70px;
+    max-width: 70px;
+}
+.cellArrivdesc{
+    @extend .cell;
+    min-width: 150px;
+    max-width: 150px;
+}
+.cellSize{
+    @extend .cell;
+    min-width: 30px;
+    max-width: 30px;
+}
+.cellDateRefresh{
+    @extend .cell;
+    min-width: 1135px;
+    max-width: 1135px;
+}
+.cellImg{
+    @extend .cell;
+    padding: 0;
+    min-width: 150px;
+    max-width: 150px;
+}
+.rowTable {
+    display: flex;
+}
+.textLeft {
+    text-align: left;
+}
+.image{
+    min-height: 200px;
+    max-height: 200px;
+}
+.sticky{
+position: sticky;
+top: 0}
