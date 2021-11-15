@@ -1,9 +1,16 @@
 .mainContainer{
-    // position: fixed;
-    // z-index: 2;
-    // overflow: auto;
-    min-width: 1135px;
-    max-width: 1135px;
-    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 1355px;
+    max-width: 1355px;
+    height: 40px;
     background-color: cadetblue;
+}
+.btn{
+    margin-left: 15px;
+    padding: 8px 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

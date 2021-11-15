@@ -1,11 +1,12 @@
 .container{
-    // margin-top: 100px; // Filter
-    // position: relative;
 }
 .table {
     display: block;
 }
 .cell{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     white-space: break-spaces;
     border: 1px solid #000000;
     text-align: center;
@@ -20,12 +21,14 @@
 // width column for table
 .searchCode {
     @extend .cell;
-    min-width: 220px;
-    max-width: 220px;} // код(70px) + фото(150px)
+    min-width: 200px;
+    max-width: 200px; // код(50px) + фото(150px)
+    }
 .cellCode{
     @extend .cell;
-    min-width: 70px;
-    max-width: 70px;
+    min-width: 50px;
+    max-width: 50px;
+    background-color: rgb(28,194,132);
 }
 .cellDescription{
     @extend .cell;
@@ -49,13 +52,13 @@
 }
 .cellSize{
     @extend .cell;
-    min-width: 30px;
-    max-width: 30px;
+    min-width: 50px;
+    max-width: 50px;
 }
 .cellDateRefresh{
     @extend .cell;
-    min-width: 1135px;
-    max-width: 1135px;
+    min-width: 1355px;
+    max-width: 1355px;
 }
 .cellImg{
     @extend .cell;
