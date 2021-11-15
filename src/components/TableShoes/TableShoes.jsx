@@ -95,7 +95,7 @@ const handleChangeSearchValue= (e)=> {
             <div className={style.sticky}>
             <Filter numberOfCategories={numberOfCategories} changeFilter={setFilterValue}/>
             <div className={style.tableHead}>
-                <div className={sn('titleTable', 'searchCode')}>Введите код <input type='text' value={searchValue} onChange={handleChangeSearchValue}>
+                <div className={sn('titleTable', 'searchCode')}><input type='text' value={searchValue} onChange={handleChangeSearchValue} placeholder='Введите код' className={style.input}>
                 </input></div>
                 <div className={sn('titleTable', 'cellDescription')}>Описание товара</div>
                 <div className={sn('titleTable', 'cellSizes')}>Размерность</div>
