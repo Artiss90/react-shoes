@@ -9,7 +9,6 @@
     justify-content: center;
     white-space: break-spaces;
     border: 1px solid #000000;
-    text-align: center;
     font-size: 8px;
 }
 .tableHead{
@@ -32,6 +31,7 @@
 }
 .cellDescription{
     @extend .cell;
+    text-align: center;
     min-width: 200px;
     max-width: 200px;
 }
@@ -39,6 +39,7 @@
     @extend .cell;
     min-width: 135px;
     max-width: 135px;
+    white-space: pre;
 }
 .cellPrice{
     @extend .cell;
@@ -47,6 +48,7 @@
 }
 .cellArrivdesc{
     @extend .cell;
+    text-align: center;
     min-width: 150px;
     max-width: 150px;
 }
@@ -68,6 +70,7 @@
 }
 .rowTable {
     display: flex;
+    &[selected]{background-color: rgb(135, 219, 188);}
 }
 .textLeft {
     text-align: left;

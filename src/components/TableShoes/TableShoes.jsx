@@ -14,6 +14,8 @@ export default function TableShoes  ()  {
     const [filteredListShoes, setFilteredListShoes] = useState([])
     const [numberOfCategories, setNumberOfCategories] = useState('')
     const [filterValue, setFilterValue] = useState('')
+    const [searchValue, setSearchValue] = useState('')
+    const [prevSearchValue, setPrevSearchValue] = useState('')
 useEffect(() => {
     // * запрос на получение данных
     axios({method: 'get', url: 'http://91.90.14.5/viagloria/hs/dropship/items',
@@ -38,6 +40,7 @@ useEffect(() => {
 }, [listShoes])
 
 useEffect(() => {
+    // * фильтрация списка по выбранных категориям
     if(filterValue === ''){
     setFilteredListShoes(listShoes)
     return
@@ -54,14 +57,46 @@ useEffect(() => {
         )
     setFilteredListShoes(filteredList)
 }, [filterValue, listShoes])
+
+useEffect(() => {
+    // * поиск по значению введенного
+    if(searchValue === ''){
+        return
+    }
+   const findItemShoes = filteredListShoes.find(item => item?.name?.includes(searchValue))
+   const findPrevItemShoes = filteredListShoes.find(item => item?.name?.includes(prevSearchValue))
+   // *если товар найден ищем элемент его содержащий
+   if(findItemShoes?.name && findPrevItemShoes?.name){
+   const elementById = document.querySelector(`#id-${findItemShoes.name}`)
+   const prevElementById = document.querySelector(`#id-${findPrevItemShoes.name}`)
+   prevElementById.removeAttribute('selected')
+   elementById.setAttribute('selected', true)
+        // *  если элемент найден скролим к нему и добавляем атрибут
+    if(elementById) 
+    {const offsetTopElement = elementById.offsetTop - 80 // 80px - это шапка
+    window.scrollTo({
+        top: offsetTopElement,
+        behavior: "smooth"
+    });}
+}
+}, [searchValue, filteredListShoes, prevSearchValue])
+
+//* массив доступных размеров
 const SIZE = ["35","36","37","38","39","40","41","42","43","44","45","46"]
+
+const handleChangeSearchValue= (e)=> {
+    e.preventDefault()
+    setPrevSearchValue(searchValue)
+    setSearchValue(e.target.value)
+}
 
     return <div className={style.container}>
         <div className={style.table}>
             <div className={style.sticky}>
             <Filter numberOfCategories={numberOfCategories} changeFilter={setFilterValue}/>
             <div className={style.tableHead}>
-                <div className={sn('titleTable', 'searchCode')}>Введите код</div>
+                <div className={sn('titleTable', 'searchCode')}>Введите код <input type='text' value={searchValue} onChange={handleChangeSearchValue}>
+                </input></div>
                 <div className={sn('titleTable', 'cellDescription')}>Описание товара</div>
                 <div className={sn('titleTable', 'cellSizes')}>Размерность</div>
                 <div className={sn('titleTable', 'cellPrice')}>Опт цена</div>
@@ -76,7 +111,7 @@ const SIZE = ["35","36","37","38","39","40","41","42","43","44","45","46"]
 
         
 {filteredListShoes.length > 0 && filteredListShoes.map(item =>{
-    return <div key={item.name} id={item.name} className={style.rowTable}>
+    return <div key={item.name} id={`id-${item.name}`} className={style.rowTable}>
         <div className={sn('cellCode')}>{item.name}</div>
         <div className={sn('cellImg')}><img src={item.img} loading="lazy" alt="shoes" className={style.image}/></div>
         <div className={sn('cellDescription')}>{item.description}</div>
