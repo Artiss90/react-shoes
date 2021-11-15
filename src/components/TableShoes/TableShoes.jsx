@@ -75,9 +75,9 @@ useEffect(() => {
     if(elementById) 
     {const offsetTopElement = elementById.offsetTop - 80 // 80px - это шапка
     window.scrollTo({
-        top: offsetTopElement,
-        behavior: "smooth"
-    });}
+        top: offsetTopElement
+    });
+}
 }
 }, [searchValue, filteredListShoes, prevSearchValue])
 
