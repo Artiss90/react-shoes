@@ -111,9 +111,10 @@ const handleChangeSearchValue= (e)=> {
 
         
 {filteredListShoes.length > 0 && filteredListShoes.map(item =>{
+    const img = item.img.replace('http://', '')
     return <div key={item.name} id={`id-${item.name}`} className={style.rowTable}>
         <div className={sn('cellCode')}>{item.name}</div>
-        <div className={sn('cellImg')}><img src={item.img} loading="lazy" alt="shoes" className={style.image}/></div>
+        <div className={sn('cellImg')}><img src={`https://images.weserv.nl/?url=${img}`} loading="lazy" alt="shoes" className={style.image}/></div>
         <div className={sn('cellDescription')}>{item.description}</div>
         <div className={sn('cellSizes')}>{item.sizedesc}</div>
         <div className={sn('cellPrice')}>{item.price}</div>
