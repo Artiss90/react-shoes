@@ -5,12 +5,14 @@ import {styleNames} from '../../utils/styleNames'
 import style from './TableShoes.module.scss';
 
 import example from '../../example';
+// import exampleUpdate from '../../exampleUpdate';
 import Filter from '../Filter/Filter';
 const sn = styleNames(style);
 
-
 export default function TableShoes  ()  {
+    const [isCategory, setIsCategory] = useState(false)
     const [listShoes, setListShoes] = useState([])
+    // const [updateListShoes, setUpdateListShoes] = useState([])
     const [filteredListShoes, setFilteredListShoes] = useState([])
     const [numberOfCategories, setNumberOfCategories] = useState('')
     const [filterValue, setFilterValue] = useState('')
@@ -22,11 +24,38 @@ useEffect(() => {
     headers: {'Audivorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
 }).then(console.log)
     setListShoes(example?.items)
-}, [])
+  }, [])
+
+// useEffect(() => {
+//     const updateList = setInterval(() => {
+//           // * запрос на получение данных
+//     axios({method: 'get', url: 'http://91.90.14.5/viagloria/hs/dropship/items',
+//     headers: {'Audivorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
+// }).then(console.log)
+
+//     setUpdateListShoes(exampleUpdate?.items)
+//     // * получаем список обуви в виде строк и сравниваем их
+//     const text = JSON.stringify(listShoes)
+//     console.log("🚀 ~ file: TableShoes.jsx ~ line 49 ~ updateList ~ text", text)
+//     const textUpdate = JSON.stringify(updateListShoes)
+//     console.log("🚀 ~ file: TableShoes.jsx ~ line 50 ~ updateList ~ textUpdate", textUpdate)
+//     const isIdentical = text === textUpdate
+//     console.log("🚀 ~ file: TableShoes.jsx ~ line 42 ~ updateList ~ isIdentical", isIdentical)
+//         // * если не  идентичны подставляем новый массив
+//     if (!isIdentical){
+//     setListShoes(updateListShoes)
+//     }
+//     }, 10000); // 10 sec
+
+//     return () => {
+//         clearInterval(updateList)
+//     }
+// }, [listShoes, updateListShoes])
 
 useEffect(() => {
+    const isIncludesCategory = listShoes[0]?.category ? true : false
     // * подсчитаем количество повторяющихся категорий
-    if(listShoes.length > 0){
+    if(listShoes.length > 0 && isIncludesCategory){
       const countCategory = listShoes.reduce((acc, {category})=>{
         if (!acc.hasOwnProperty(category)) {
             acc[category] = 0;
@@ -37,6 +66,7 @@ useEffect(() => {
       },{})
       setNumberOfCategories(countCategory)
     }
+    setIsCategory(isIncludesCategory)
 }, [listShoes])
 
 useEffect(() => {
@@ -93,7 +123,7 @@ const handleChangeSearchValue= (e)=> {
     return <div className={style.container}>
         <div className={style.table}>
             <div className={style.sticky}>
-            <Filter numberOfCategories={numberOfCategories} changeFilter={setFilterValue}/>
+            {isCategory && <Filter numberOfCategories={numberOfCategories} changeFilter={setFilterValue}/>}
             <div className={style.tableHead}>
                 <div className={sn('titleTable', 'searchCode')}><input type='text' value={searchValue} onChange={handleChangeSearchValue} placeholder='Введите код' className={style.input}>
                 </input></div>
