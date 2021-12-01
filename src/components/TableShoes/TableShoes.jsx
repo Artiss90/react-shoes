@@ -21,16 +21,21 @@ export default function TableShoes  ()  {
 useEffect(() => {
     // * запрос на получение данных
     axios({method: 'get', url: 'http://91.90.14.5/viagloria/hs/dropship/items',
-    headers: {'Audivorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
-}).then(console.log)
-    setListShoes(example?.items)
+    headers: {'Authorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
+}).then(response =>{
+    setListShoes(response.data.items)
+}).catch(error=>{
+    setListShoes(example.items)
+    console.log(error)
+}
+    )
   }, [])
 
 // useEffect(() => {
 //     const updateList = setInterval(() => {
 //           // * запрос на получение данных
 //     axios({method: 'get', url: 'http://91.90.14.5/viagloria/hs/dropship/items',
-//     headers: {'Audivorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
+//     headers: {'Authorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
 // }).then(console.log)
 
 //     setUpdateListShoes(exampleUpdate?.items)
