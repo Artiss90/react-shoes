@@ -5,14 +5,14 @@ import {styleNames} from '../../utils/styleNames'
 import style from './TableShoes.module.scss';
 
 import example from '../../example';
-// import exampleUpdate from '../../exampleUpdate';
+import exampleUpdate from '../../exampleUpdate';
 import Filter from '../Filter/Filter';
 const sn = styleNames(style);
 
 export default function TableShoes  ()  {
     const [isCategory, setIsCategory] = useState(false)
     const [listShoes, setListShoes] = useState([])
-    // const [updateListShoes, setUpdateListShoes] = useState([])
+    const [updateListShoes, setUpdateListShoes] = useState([])
     const [filteredListShoes, setFilteredListShoes] = useState([])
     const [numberOfCategories, setNumberOfCategories] = useState('')
     const [filterValue, setFilterValue] = useState('')
@@ -25,37 +25,48 @@ useEffect(() => {
 }).then(response =>{
     setListShoes(response.data.items)
 }).catch(error=>{
+    // ! подставляем example
     setListShoes(example.items)
     console.log(error)
 }
     )
   }, [])
 
-// useEffect(() => {
-//     const updateList = setInterval(() => {
-//           // * запрос на получение данных
-//     axios({method: 'get', url: 'http://91.90.14.5/viagloria/hs/dropship/items',
-//     headers: {'Authorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
-// }).then(console.log)
+useEffect(() => {
+    const updateList = setInterval(() => {
+          // * запрос на получение данных
+    axios({method: 'get', url: 'http://91.90.14.5/viagloria/hs/dropship/items',
+    headers: {'Authorization': 'Basic QWRtaW5pc3RyYXRvcjp3d3cxMjM='}
+}).then(response =>{
+    setUpdateListShoes(response.data.items)
+}).catch(error=>{
+    // ! подставляем example
+    setUpdateListShoes(exampleUpdate?.items)
+    console.log(error)
+}
+    )
 
-//     setUpdateListShoes(exampleUpdate?.items)
-//     // * получаем список обуви в виде строк и сравниваем их
-//     const text = JSON.stringify(listShoes)
-//     console.log("🚀 ~ file: TableShoes.jsx ~ line 49 ~ updateList ~ text", text)
-//     const textUpdate = JSON.stringify(updateListShoes)
-//     console.log("🚀 ~ file: TableShoes.jsx ~ line 50 ~ updateList ~ textUpdate", textUpdate)
-//     const isIdentical = text === textUpdate
-//     console.log("🚀 ~ file: TableShoes.jsx ~ line 42 ~ updateList ~ isIdentical", isIdentical)
-//         // * если не  идентичны подставляем новый массив
-//     if (!isIdentical){
-//     setListShoes(updateListShoes)
-//     }
-//     }, 10000); // 10 sec
+    }, 10000); // 10 sec
 
-//     return () => {
-//         clearInterval(updateList)
-//     }
-// }, [listShoes, updateListShoes])
+    return () => {
+        clearInterval(updateList)
+    }
+}, [listShoes, updateListShoes])
+
+useEffect(() => {
+    if((listShoes.length > 0) && (updateListShoes.length > 0)){
+        // * получаем список обуви в виде строк и сравниваем их
+    const text = JSON.stringify(listShoes)
+    console.log("🚀 ~ file: TableShoes.jsx ~ line 49 ~ updateList ~ text", text)
+    const textUpdate = JSON.stringify(updateListShoes)
+    console.log("🚀 ~ file: TableShoes.jsx ~ line 50 ~ updateList ~ textUpdate", textUpdate)
+    const isIdentical = text === textUpdate
+    console.log("🚀 ~ file: TableShoes.jsx ~ line 42 ~ updateList ~ isIdentical", isIdentical)
+        // * если не  идентичны подставляем новый массив
+    if (!isIdentical){
+    setListShoes(updateListShoes)
+    }}
+}, [listShoes, updateListShoes])
 
 useEffect(() => {
     const isIncludesCategory = listShoes[0]?.category ? true : false
